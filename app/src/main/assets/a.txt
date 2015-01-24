@@ -1,0 +1,10 @@
+components of a card:
+
+bitmap name
+description all on one line
+
+________
+bName:
+Grizzly Bear
+description:
+2/2 creature
