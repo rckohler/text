@@ -1,10 +1,8 @@
-components of a card:
-
-bitmap name
-description all on one line
-
-________
 bName:
-Grizzly Bear
+zombie1.png
 description:
-2/2 creature
+a very scary zombie
+bName:
+zombie2.png
+description:
+a different very scaryyyy zombie with a very long description of his brilliance and ineptitude

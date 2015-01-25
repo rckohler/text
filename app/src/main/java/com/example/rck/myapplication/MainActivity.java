@@ -1,10 +1,13 @@
 package com.example.rck.myapplication;
 
+import android.content.pm.ActivityInfo;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.RectF;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -17,51 +20,22 @@ import java.util.Vector;
 
 public class MainActivity extends ActionBarActivity {
     Bitmap bitmap;
+    int screenHeight, screenWidth;
+    CardFactory cardFactory;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Vector<String> bitmapNames = new Vector<String>();
-        Vector<String> descriptions = new Vector<String>();
 
-        AssetManager assetManager = getAssets();
-
-        InputStream is = null;
-        BufferedReader reader;
-        String sCurrentLine;
-        String cardBitmapName;
-        String cardDescription;
-        try {
-            is = assetManager.open("a.txt");
-            reader = new BufferedReader(new InputStreamReader(is));
-            System.out.println("Here: " + reader.toString());
-            while ((sCurrentLine = reader.readLine()) != null) {
-                if (sCurrentLine == "bName")
-                {
-                    cardBitmapName = sCurrentLine;
-                    bitmapNames.add(cardBitmapName);
-                }
-                if (sCurrentLine == "description")
-                {
-                    cardDescription = sCurrentLine;
-                    bitmapNames.add(cardDescription);
-                }
-            }
-        }
-        catch (IOException e){
-            System.out.println("rck: failure");
-        }
-        for (int i = 0; i <bitmapNames.size(); i++){
-            System.out.println(bitmapNames.elementAt(i));
-            System.out.println(descriptions.elementAt(i));
-        }
-        //BufferedReader reader = new BufferedReader(new InputStreamReader(iS));
+        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        screenHeight = metrics.heightPixels;
+        screenWidth = metrics.widthPixels;
+        cardFactory = CardFactory.getInstance(this,"a.txt");
+        CardView cardView = new CardView(this);
+        setContentView(cardView);
     }
-    private void loadBitmaps(){
-        int bitmapName = R.drawable.zombie1;
-        bitmap = BitmapFactory.decodeResource(getResources(), bitmapName);
 
-    }
 
 
     @Override
